@@ -1,4 +1,4 @@
-/*#include<stdio.h>
+#include<stdio.h>
 #define Max 4
 int top=-1,sta[Max];
 void push(int ele){
@@ -49,4 +49,5 @@ int main(){
                               }
     }
 }
-*/
+
+
