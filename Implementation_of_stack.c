@@ -3,7 +3,7 @@
 int top=-1,sta[Max];
 void push(int ele){
     if(top==Max-1){
-        printf("Stack Overflow");
+        printf("Stack Overflow\n");
         return;
     }
     top++;
@@ -11,7 +11,7 @@ void push(int ele){
 }
 int pop(){
     if(top==-1){
-        printf("Stack Underflow");
+        printf("Stack Underflow\n");
         return -1;
     }
     int pop_ele=sta[top];
@@ -23,11 +23,12 @@ void display(){
     for(int i=0;i<=top;i++){
         printf("%d ",sta[i]);
     }
+    printf("\n");
 }
 int main(){
     int choice,element;
     while(1){
-        printf("Enter choice: 1 push \n 2 pop \n 3 return");
+        printf("Enter choice: \n1 push \n 2 pop \n 3 return");
                               scanf("%d",&choice);
                               switch(choice)
                               {
@@ -49,5 +50,4 @@ int main(){
                               }
     }
 }
-
 
