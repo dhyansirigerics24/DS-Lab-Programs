@@ -1,4 +1,4 @@
-/*#include<stdio.h>
+#include<stdio.h>
 #define max 5
 int L_queue[max],front=-1,rear=-1;
 void insert(int ele){
@@ -68,4 +68,4 @@ int main(){
     }
 }
 }
-*/
+
