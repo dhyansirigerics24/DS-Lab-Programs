@@ -118,7 +118,7 @@ void insertAtPosition(int data,int pos)
     }
     newNode->next=temp->next;
     temp->next=newNode;
-    printf("Inseerted %d at position %d.\n",data,pos);
+    printf("Inserted %d at position %d.\n",data,pos);
 }
 
 int main()
@@ -167,3 +167,4 @@ int main()
     }
     return 0;
 }
+
