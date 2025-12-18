@@ -1,40 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Definition of BST Node */
 struct node {
     int data;
     struct node *left;
     struct node *right;
 };
 
-/* Create a new node */
-struct node* createNode(int item)
-{
-    struct node *newNode = (struct node*)malloc(sizeof(struct node));
-    newNode->data = item;
-    newNode->left = newNode->right = NULL;
+/* Function to create a new node */
+struct node* createNode(int value) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
     return newNode;
 }
 
-/* Insert a node in BST */
-struct node* insert(struct node *root, int item)
-{
+/* Function to insert a node in BST */
+struct node* insert(struct node* root, int value) {
     if (root == NULL)
-        return createNode(item);
+        return createNode(value);
 
-    if (item < root->data)
-        root->left = insert(root->left, item);
-    else if (item > root->data)
-        root->right = insert(root->right, item);
+    if (value < root->data)
+        root->left = insert(root->left, value);
+    else if (value > root->data)
+        root->right = insert(root->right, value);
 
     return root;
 }
 
 /* Inorder Traversal */
-void inorder(struct node *root)
-{
-    if (root != NULL)
-    {
+void inorder(struct node* root) {
+    if (root != NULL) {
         inorder(root->left);
         printf("%d ", root->data);
         inorder(root->right);
@@ -42,10 +40,8 @@ void inorder(struct node *root)
 }
 
 /* Preorder Traversal */
-void preorder(struct node *root)
-{
-    if (root != NULL)
-    {
+void preorder(struct node* root) {
+    if (root != NULL) {
         printf("%d ", root->data);
         preorder(root->left);
         preorder(root->right);
@@ -53,29 +49,26 @@ void preorder(struct node *root)
 }
 
 /* Postorder Traversal */
-void postorder(struct node *root)
-{
-    if (root != NULL)
-    {
+void postorder(struct node* root) {
+    if (root != NULL) {
         postorder(root->left);
         postorder(root->right);
         printf("%d ", root->data);
     }
 }
 
-int main()
-{
-    struct node *root = NULL;
-    int n, i, key;
+/* Main Function */
+int main() {
+    struct node* root = NULL;
+    int n, value, i;
 
-    printf("Enter number of nodes: ");
+    printf("Enter number of elements: ");
     scanf("%d", &n);
 
     printf("Enter the elements:\n");
-    for (i = 0; i < n; i++)
-    {
-        scanf("%d", &key);
-        root = insert(root, key);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &value);
+        root = insert(root, value);
     }
 
     printf("\nInorder Traversal: ");
