@@ -1,44 +1,87 @@
 #include <stdio.h>
-#define SIZE 10
 
-int hashTable[SIZE];
+#define MAX 50
 
-void insert(int key)
-{
-    int index = key % SIZE;
+struct employee {
+    int key;        // 4-digit employee key
+    int empId;      // employee ID
+    char name[20];  // employee name
+};
 
-    while (hashTable[index] != -1)
-        index = (index + 1) % SIZE;
+struct employee hashTable[MAX];
+int m;
 
-    hashTable[index] = key;
-}
-
-void display()
-{
+/* Initialize hash table */
+void initHashTable() {
     int i;
-    for (i = 0; i < SIZE; i++)
-        printf("Index %d : %d\n", i, hashTable[i]);
+    for (i = 0; i < m; i++) {
+        hashTable[i].key = -1;   // -1 indicates empty slot
+    }
 }
 
-int main()
-{
-    int i, key, n;
+/* Hash function */
+int hashFunction(int key) {
+    return key % m;
+}
 
-    for (i = 0; i < SIZE; i++)
-        hashTable[i] = -1;
+/* Insert record using Linear Probing */
+void insert(int key, int empId, char name[]) {
+    int index = hashFunction(key);
+    int startIndex = index;
 
-    printf("Enter number of keys: ");
-    scanf("%d", &n);
+    while (hashTable[index].key != -1) {
+        index = (index + 1) % m;
 
-    printf("Enter keys:\n");
-    for (i = 0; i < n; i++)
-    {
-        scanf("%d", &key);
-        insert(key);
+        if (index == startIndex) {
+            printf("Hash table is full\n");
+            return;
+        }
     }
 
-    printf("Hash Table:\n");
-    display();
+    hashTable[index].key = key;
+    hashTable[index].empId = empId;
+    sprintf(hashTable[index].name, "%s", name);
+}
 
+/* Display hash table */
+void display() {
+    int i;
+    printf("\nHash Table Contents:\n");
+    printf("Address\tKey\tEmpID\tName\n");
+    for (i = 0; i < m; i++) {
+        if (hashTable[i].key != -1)
+            printf("%d\t%d\t%d\t%s\n", i, hashTable[i].key,
+                   hashTable[i].empId, hashTable[i].name);
+        else
+            printf("%d\t--\t--\t--\n", i);
+    }
+}
+
+int main() {
+    int n, i, key, empId;
+    char name[20];
+
+    printf("Enter number of memory locations (m): ");
+    scanf("%d", &m);
+
+    initHashTable();
+
+    printf("Enter number of employee records (N): ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("\nEnter 4-digit Key: ");
+        scanf("%d", &key);
+
+        printf("Enter Employee ID: ");
+        scanf("%d", &empId);
+
+        printf("Enter Employee Name: ");
+        scanf("%s", name);
+
+        insert(key, empId, name);
+    }
+
+    display();
     return 0;
 }
