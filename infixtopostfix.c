@@ -25,41 +25,49 @@ int isOperator(char o)
 {
     return(o=='+'||o=='-'||o=='*'||o=='/');
 }
-void infixtopostfix(char infix[],char postfix[])
+void infixtopostfix(char infix[], char postfix[])
 {
-    int i=0,j=0;
+    int i = 0, j = 0;
     char ch;
-    while(infix[i]!='\0')
+
+    while (infix[i] != '\0')
     {
-        ch= infix[i];
+        ch = infix[i];
+
         if (isalnum(ch))
         {
-            postfix[j++]=ch;
+            postfix[j++] = ch;
         }
-        else if(ch=='(')
+        else if (ch == '(')
         {
-            while(peek()!=')')
+            push(ch);
+        }
+        else if (ch == ')')
+        {
+            while (top != -1 && peek() != '(')
             {
-                postfix[j++]=pop();
+                postfix[j++] = pop();
             }
-            pop();
+            pop(); // remove '('
         }
-        else if(isOperator(ch))
+        else if (isOperator(ch))
         {
-            while(top!=-1&&precedence(peek())>=precedence(ch))
+            while (top != -1 && precedence(peek()) >= precedence(ch))
             {
-                postfix[j++]=pop();
+                postfix[j++] = pop();
             }
             push(ch);
         }
         i++;
     }
-    while(top!=-1)
+
+    while (top != -1)
     {
-        postfix[j++]=pop();
+        postfix[j++] = pop();
     }
-    postfix[j]='\0';
+    postfix[j] = '\0';
 }
+
 int main()
 {
     char infix[max],postfix[max];
